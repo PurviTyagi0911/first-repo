@@ -1,0 +1,2 @@
+income | salary | 345
+income | f | 567
