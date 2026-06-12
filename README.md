@@ -1,2 +1,0 @@
-# first-repo
-finance tracker
