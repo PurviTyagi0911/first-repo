@@ -3,7 +3,6 @@ class FinanceTracker:
     def __init__(self):
      self.finance_tracker=[]
      try:
-        print('loading transactions....')
         self.load_transactions()
      except FileNotFoundError:
         return 'file not found'
@@ -15,10 +14,9 @@ class FinanceTracker:
           elif transaction.ttype=="expense":
             balance-=transaction.amount 
        return balance     
-    def add_income(self,category,amount):
+    def add_income(self,amount,category):
        self.amount=amount
        self.category=category
-
        FinanceTracker=Transactions("income",category,amount) 
        self.finance_tracker.append(FinanceTracker)
        self.save_trans(FinanceTracker)
@@ -72,9 +70,9 @@ class FinanceTracker:
        if num-1 in range(len(self.finance_tracker)):
         self.finance_tracker.pop(num-1)
         print(f'transaction {num} deleted')   
-
        else:
           print('invalid transaction number')
+       self.update_file()
     def highest_expense(self):
        dictctg={}
        
@@ -105,3 +103,9 @@ class FinanceTracker:
              amount=int(parts[2].strip())
              FinanceTracker=Transactions(transaction_type,transaction_category,amount)
              self.finance_tracker.append(FinanceTracker)
+    def update_file(self):
+       with open('transactions.txt','w') as file:
+          for transaction in self.finance_tracker:
+           file.write(f'{transaction.ttype} | {transaction.category} | {transaction.amount}\n')
+          
+    

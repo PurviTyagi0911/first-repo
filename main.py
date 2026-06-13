@@ -1,5 +1,5 @@
 from finance_tracker import FinanceTracker
-print("1 for adding income")
+print(f'1 - Adding income \n2 - Adding expense \n3 - View transactions \n4 - View balance\n5 - Exit\n6 - Total Transactions\n7 - Total Expense\n8 - Search Category wise expense\n9 - Delete Transaction\n10 - View Highest expense Category')
 Tracker=FinanceTracker()
 
 while True:
@@ -8,17 +8,17 @@ while True:
     if user_input==1:
      amount=int(input("enter amount : "))
      category=input("enter category : ")
-     Tracker.add_income(amount,category)
+     Tracker.add_income(amount, category)
      print("Amount of rupees",amount, "added successfully")
     elif user_input==2:
      amount=int(input("enter amount : "))
      category=input("enter category : ")
+     Tracker.add_expense(amount,category)
      balance=int(Tracker.view_balance())
-     if balance<amount:
-       print("transaction failed","invalid expense your current balance is",balance)
+     if balance<0:
+       print("transaction failed","invalid expense your current balance is",balance+amount)
        Tracker.trans_failed()
      else:
-       Tracker.add_expense(amount,category)
        print("Expense of rupees",amount, "added successfully")
     elif user_input==3:
      

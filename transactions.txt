@@ -1,2 +1,3 @@
-income | salary | 345
-income | f | 567
+income | 23 | 456
+expense | r | 34
+expense | r | 5
