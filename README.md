@@ -2,6 +2,10 @@
 
 A Python-based finance tracker built using Object-Oriented Programming (OOP).
 
+## Screenshot
+
+![Finance Tracker](./Screenshot%20Finance%20Tracker%20v1.png)
+
 ## Features
 
 * Add Income

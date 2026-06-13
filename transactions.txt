@@ -1,3 +1,5 @@
 income | 23 | 456
 expense | r | 34
 expense | r | 5
+income | salary | 345
+expense | food | 34
