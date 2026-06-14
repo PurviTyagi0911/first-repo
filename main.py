@@ -1,5 +1,5 @@
 from finance_tracker import FinanceTracker
-print(f'1 - Adding income \n2 - Adding expense \n3 - View transactions \n4 - View balance\n5 - Exit\n6 - Total Transactions\n7 - Total Expense\n8 - Search Category wise expense\n9 - Delete Transaction\n10 - View Highest expense Category')
+print(f'1 - Adding income \n2 - Adding expense \n3 - View transactions \n4 - View balance\n5 - Exit\n6 - Total Transactions\n7 - Total Expense\n8 - Search Category wise expense\n9 - Delete Transaction\n10 - View Highest expense Category\n11 - Clear transaction history')
 Tracker=FinanceTracker()
 
 while True:
@@ -12,19 +12,31 @@ while True:
     if user_input==1:
      try:
       amount=int(input("enter amount : "))
+      if amount <= 0:
+        print("amount must be positive")
+        continue
      except ValueError:
       print('invalid value entered')
       continue
      category=input("enter category : ")
+     while category=='':
+       print('invalid actegory')
+       category=input('enter category :')
      Tracker.add_income(amount, category)
      print("Amount of rupees",amount, "added successfully")
     elif user_input==2:
      try:
       amount=int(input("enter amount : "))
+      if amount <= 0:
+         print("amount must be positive")
+         continue
      except ValueError:
       print('invalid value entered')
       continue
      category=input("enter category : ")
+     while category=='':
+       print('invalid actegory')
+       category=input('enter category :')
      Tracker.add_expense(amount,category)
      balance=int(Tracker.view_balance())
      if balance<0:
@@ -56,6 +68,7 @@ while True:
      print(Tracker.highest_expense())
     elif user_input==11:
       Tracker.clear_his()
+      Tracker.update_file()
       print('transaction history cleared')
     else:
       print('Invalid input')

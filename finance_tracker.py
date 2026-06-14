@@ -17,37 +17,29 @@ class FinanceTracker:
        return balance     
     def add_income(self,amount,category):
        self.amount=amount
-       self.category=category
+       self.category=category    
        transaction=Transactions(self.next_id,"income",category,amount) 
        self.finance_tracker.append(transaction)
        self.save_trans(transaction)
        self.next_id+=1
     def clear_his(self):
        self.finance_tracker.clear()
-       with open('transaction.txt','w') as file:
+       with open('transactions.txt','w') as file:
           file.write('')
-          
-        
-
-       
+       self.next_id=1
     def add_expense(self,amount,category):
        self.amount=amount
-       self.category=category
+       self.category=category     
        transaction=Transactions(self.next_id,"expense",category,amount) 
        self.finance_tracker.append(transaction)
        self.save_trans(transaction)
        self.next_id+=1
-
-
-
     def trans_failed(self):
        self.finance_tracker.pop(-1)
-
     def view_transactions(self):
        if len(self.finance_tracker)==0:
           print("no transactions")
-          return
-       
+          return  
        for transaction in self.finance_tracker:
           transaction.display_details()
     def totalt(self):
@@ -57,7 +49,6 @@ class FinanceTracker:
        for transaction in self.finance_tracker:
           if transaction.ttype=="income":
              sumt+=transaction.amount
-
        return sumt
     def texpenses(self):
        sumt=0
@@ -70,14 +61,17 @@ class FinanceTracker:
           return f'total expense ${sumt}'
     def searchctg(self,category):
        sumtctg=0
+       if category.strip()=='':
+          print('invalid category')     
+       search_key = category.lower()
        for transaction in self.finance_tracker:
-             if transaction.category==category.lower() and transaction.ttype=='expense':
+             if transaction.category.lower() == search_key and transaction.ttype=='expense':
                transaction.display_details() 
                sumtctg+=transaction.amount
        if sumtctg==0:
           return 'no expense with that category found'
        else: 
-          return f'total expense on {category} is ${sumtctg}'        
+          return f'total expense on {category} is ${sumtctg}'   
     def delete_trans(self,transaction_id):
        for index, transaction in enumerate((self.finance_tracker)):
         if transaction.transaction_id==transaction_id:
@@ -91,7 +85,7 @@ class FinanceTracker:
        dictctg={}
        for transaction in self.finance_tracker:
          if transaction.ttype=="expense":
-          if transaction.category in dictctg:
+          if transaction.category.lower() in dictctg:
            dictctg[transaction.category]+=transaction.amount
           else:
            dictctg[transaction.category]=transaction.amount
@@ -103,6 +97,7 @@ class FinanceTracker:
         return f'maximum expense on {maxctg} of ${maxamn}'
     def save_trans(self,transaction):
        with open('transactions.txt','a') as file:
+          
           file.write(f'{transaction.transaction_id} | {transaction.ttype} | {transaction.category} | {transaction.amount}\n')
     def load_transactions(self):
        max_id = 0
