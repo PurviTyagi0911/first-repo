@@ -10,16 +10,17 @@ A Python-based finance tracker built using Object-Oriented Programming (OOP).
 
 * Add Income
 * Add Expense
-* View Transactions
+* View Transactions with IDs
 * View Balance
 * Total Transactions
 * Total Income
 * Total Expenses
 * Search Transactions by Category
-* Delete Transactions
+* Delete Transactions using ID
 * Highest Expense Category
 * Save Transactions to File
 * Load Transactions Automatically on Startup
+* Input Validation and Error Handling
 
 ## Technologies Used
 
@@ -29,6 +30,7 @@ A Python-based finance tracker built using Object-Oriented Programming (OOP).
 * Dictionaries
 * Git
 * GitHub
+* Exception Handling
 
 ## Project Structure
 
