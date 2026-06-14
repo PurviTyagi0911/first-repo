@@ -2,6 +2,7 @@ from transactions import Transactions
 class FinanceTracker:
     def __init__(self):
      self.finance_tracker=[]
+     self.next_id=1
      try:
         self.load_transactions()
      except FileNotFoundError:
@@ -17,16 +18,27 @@ class FinanceTracker:
     def add_income(self,amount,category):
        self.amount=amount
        self.category=category
-       FinanceTracker=Transactions("income",category,amount) 
-       self.finance_tracker.append(FinanceTracker)
-       self.save_trans(FinanceTracker)
+       transaction=Transactions(self.next_id,"income",category,amount) 
+       self.finance_tracker.append(transaction)
+       self.save_trans(transaction)
+       self.next_id+=1
+    def clear_his(self):
+       self.finance_tracker.clear()
+       with open('transaction.txt','w') as file:
+          file.write('')
+          
+        
+
        
     def add_expense(self,amount,category):
        self.amount=amount
        self.category=category
-       FinanceTracker=Transactions("expense",category,amount) 
-       self.finance_tracker.append(FinanceTracker)
-       self.save_trans(FinanceTracker)
+       transaction=Transactions(self.next_id,"expense",category,amount) 
+       self.finance_tracker.append(transaction)
+       self.save_trans(transaction)
+       self.next_id+=1
+
+
 
     def trans_failed(self):
        self.finance_tracker.pop(-1)
@@ -66,16 +78,17 @@ class FinanceTracker:
           return 'no expense with that category found'
        else: 
           return f'total expense on {category} is ${sumtctg}'        
-    def delete_trans(self,num):
-       if num-1 in range(len(self.finance_tracker)):
-        self.finance_tracker.pop(num-1)
-        print(f'transaction {num} deleted')   
+    def delete_trans(self,transaction_id):
+       for index, transaction in enumerate((self.finance_tracker)):
+        if transaction.transaction_id==transaction_id:
+          self.finance_tracker.pop(index)
+          print(f'transaction {transaction_id} deleted')
+          break
        else:
           print('invalid transaction number')
        self.update_file()
     def highest_expense(self):
        dictctg={}
-       
        for transaction in self.finance_tracker:
          if transaction.ttype=="expense":
           if transaction.category in dictctg:
@@ -90,22 +103,34 @@ class FinanceTracker:
         return f'maximum expense on {maxctg} of ${maxamn}'
     def save_trans(self,transaction):
        with open('transactions.txt','a') as file:
-          file.write(f'{transaction.ttype} | {transaction.category} | {transaction.amount}\n')
+          file.write(f'{transaction.transaction_id} | {transaction.ttype} | {transaction.category} | {transaction.amount}\n')
     def load_transactions(self):
+       max_id = 0
        with open('transactions.txt','r') as file:
           for line in file:
-             line=line.strip()
-             if line=='':
+             line = line.strip()
+             if line == '':
                 continue
-             parts=line.split("|")
-             transaction_type=parts[0].strip()
-             transaction_category=parts[1].strip()
-             amount=int(parts[2].strip())
-             FinanceTracker=Transactions(transaction_type,transaction_category,amount)
-             self.finance_tracker.append(FinanceTracker)
+             parts = [part.strip() for part in line.split('|')]
+             if len(parts) == 4:
+                transaction_id = int(parts[0])
+                transaction_type = parts[1]
+                transaction_category = parts[2]
+                amount = int(parts[3])
+             elif len(parts) == 3:
+                transaction_id = max_id + 1
+                transaction_type = parts[0]
+                transaction_category = parts[1]
+                amount = int(parts[2])
+             else:
+                continue
+             transaction = Transactions(transaction_id, transaction_type, transaction_category, amount)
+             self.finance_tracker.append(transaction)
+             max_id = max(max_id, transaction_id)
+       self.next_id = max_id + 1 if max_id else 1
     def update_file(self):
        with open('transactions.txt','w') as file:
           for transaction in self.finance_tracker:
-           file.write(f'{transaction.ttype} | {transaction.category} | {transaction.amount}\n')
+           file.write(f'{transaction.transaction_id} | {transaction.ttype} | {transaction.category} | {transaction.amount}\n')
           
     

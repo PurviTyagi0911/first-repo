@@ -3,21 +3,35 @@ print(f'1 - Adding income \n2 - Adding expense \n3 - View transactions \n4 - Vie
 Tracker=FinanceTracker()
 
 while True:
-    user_input=int(input("enter your input : "))
+    try:
+      user_input=int(input("enter your input : "))
+    except ValueError:
+      print('invalid value entered')
+      continue
 
     if user_input==1:
-     amount=int(input("enter amount : "))
+     try:
+      amount=int(input("enter amount : "))
+     except ValueError:
+      print('invalid value entered')
+      continue
      category=input("enter category : ")
      Tracker.add_income(amount, category)
      print("Amount of rupees",amount, "added successfully")
     elif user_input==2:
-     amount=int(input("enter amount : "))
+     try:
+      amount=int(input("enter amount : "))
+     except ValueError:
+      print('invalid value entered')
+      continue
      category=input("enter category : ")
      Tracker.add_expense(amount,category)
      balance=int(Tracker.view_balance())
      if balance<0:
        print("transaction failed","invalid expense your current balance is",balance+amount)
        Tracker.trans_failed()
+       Tracker.update_file()
+      
      else:
        print("Expense of rupees",amount, "added successfully")
     elif user_input==3:
@@ -35,10 +49,13 @@ while True:
      category=input("Enter category to search : ")
      print(Tracker.searchctg(category)) 
     elif user_input==9:
-      num=int(input("Enter transaction number to delete : "))
+      num=int(input("Enter transaction id to delete : "))
       Tracker.delete_trans(num)
     elif user_input==10:
 
      print(Tracker.highest_expense())
+    elif user_input==11:
+      Tracker.clear_his()
+      print('transaction history cleared')
     else:
       print('Invalid input')

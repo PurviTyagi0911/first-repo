@@ -1,5 +1,3 @@
-income | internship | 456
-expense | food | 34
-expense | travel | 500
-income | salary | 3450
-expense | food | 34
+
+3 | income | s | 500
+4 | expense | f | 600
