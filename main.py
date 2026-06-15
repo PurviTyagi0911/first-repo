@@ -1,5 +1,5 @@
 from finance_tracker import FinanceTracker
-print(f'1 - Adding income \n2 - Adding expense \n3 - View transactions \n4 - View balance\n5 - Exit\n6 - Total Transactions\n7 - Total Expense\n8 - Search Category wise expense\n9 - Delete Transaction\n10 - View Highest expense Category\n11 - Clear transaction history')
+print(f'1 - Adding income \n2 - Adding expense \n3 - View transactions \n4 - View balance\n5 - Exit\n6 - Total Transactions\n7 - Total Expense\n8 - Search Category wise expense\n9 - Delete Transaction\n10 - View Highest expense Category\n11 - Clear transaction history\n12 - Search Transaction using Transaction ID\n13 - Show Statistics')
 Tracker=FinanceTracker()
 
 while True:
@@ -64,11 +64,19 @@ while True:
       num=int(input("Enter transaction id to delete : "))
       Tracker.delete_trans(num)
     elif user_input==10:
-
-     print(Tracker.highest_expense())
+     Tracker.highest_expense()
     elif user_input==11:
       Tracker.clear_his()
       Tracker.update_file()
       print('transaction history cleared')
+    elif user_input==12:
+      try:
+       id=int(input('Enter transaction id : '))
+      except ValueError:
+        print('invalid input')
+        continue
+      Tracker.search_id(id)
+    elif user_input==13:
+      Tracker.view_statistics()
     else:
       print('Invalid input')

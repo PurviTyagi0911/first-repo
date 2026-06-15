@@ -14,7 +14,7 @@ class FinanceTracker:
            balance+=transaction.amount
           elif transaction.ttype=="expense":
             balance-=transaction.amount 
-       return balance     
+       return f'${balance}'  
     def add_income(self,amount,category):
        self.amount=amount
        self.category=category    
@@ -40,6 +40,8 @@ class FinanceTracker:
        if len(self.finance_tracker)==0:
           print("no transactions")
           return  
+       print(f"{'ID':<5}{'TYPE':<10}{'CATEGORY':<15}{'AMOUNT'}")
+       print("-"*40)
        for transaction in self.finance_tracker:
           transaction.display_details()
     def totalt(self):
@@ -49,7 +51,7 @@ class FinanceTracker:
        for transaction in self.finance_tracker:
           if transaction.ttype=="income":
              sumt+=transaction.amount
-       return sumt
+       return f'${sumt}'
     def texpenses(self):
        sumt=0
        for transaction in self.finance_tracker:
@@ -58,7 +60,7 @@ class FinanceTracker:
        if sumt==0:
           return 'No expenses found'
        else:
-          return f'total expense ${sumt}'
+          return f'${sumt}'
     def searchctg(self,category):
        sumtctg=0
        if category.strip()=='':
@@ -93,11 +95,13 @@ class FinanceTracker:
           return 'No expense found'
        else:
         maxamn=max(dictctg.values())
-        maxctg= [key for key, value in dictctg.items() if value == maxamn]
-        return f'maximum expense on {maxctg} of ${maxamn}'
+        maxctg = [key for key, value in dictctg.items() if value == maxamn]
+        print(f'Category with highest expense ${maxamn} are')
+        for item in maxctg:
+           print(item)
+
     def save_trans(self,transaction):
        with open('transactions.txt','a') as file:
-          
           file.write(f'{transaction.transaction_id} | {transaction.ttype} | {transaction.category} | {transaction.amount}\n')
     def load_transactions(self):
        max_id = 0
@@ -127,5 +131,17 @@ class FinanceTracker:
        with open('transactions.txt','w') as file:
           for transaction in self.finance_tracker:
            file.write(f'{transaction.transaction_id} | {transaction.ttype} | {transaction.category} | {transaction.amount}\n')
+    def search_id(self,id):
+       count=0
+       for transaction in self.finance_tracker:
+          if transaction.transaction_id==id:
+             print(f"{'ID':<5}{'TYPE':<10}{'CATEGORY':<15}{'AMOUNT'}")
+             print("-"*40)
+             transaction.display_details()
+             count+=1
+       if count==0:
+          print('Invalid Transaction ID entered')
+    def view_statistics(self):
+       print(f'Balance - {self.view_balance()}\nTotal Income - {self.incomesum()}\nTotal Expense - {self.texpenses()}\nNumber of Transactions - {self.totalt()}\nHighest Expense Category - {self.highest_expense()}')
           
     

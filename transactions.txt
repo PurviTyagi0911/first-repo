@@ -1,3 +1,4 @@
 1 | income | salary | 2000
-2 | expense | food | 200
-3 | expense | travel | 1000
+4 | income | salary | 678
+7 | expense | e | 3
+8 | expense | food | 345
