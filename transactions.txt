@@ -1,5 +1,4 @@
 1 | income | salary | 2000
-8 | expense | food | 345
-9 | expense | travel | 200
 10 | income | part-time job | 23
 12 | expense | food | 45
+13 | expense | travel | 56

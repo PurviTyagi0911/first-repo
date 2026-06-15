@@ -96,7 +96,7 @@ class FinanceTracker:
        else:
         maxamn=max(dictctg.values())
         maxctg = [key for key, value in dictctg.items() if value == maxamn]
-        print(f'Category with highest expense ${maxamn} is/are')
+        print(f'Category with highest expense amount {maxamn}: ')
         for item in maxctg:
            return item
 
