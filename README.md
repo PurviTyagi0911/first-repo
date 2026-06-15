@@ -4,7 +4,7 @@ A Python-based finance tracker built using Object-Oriented Programming (OOP).
 
 ## Screenshot
 
-![Finance Tracker](./Screenshot%20Finance%20Tracker%20v1.png)
+![Finance Tracker](./Screenshot%20Finance%20Tracker%20v1.2.png)
 
 ## Features
 
@@ -21,6 +21,7 @@ A Python-based finance tracker built using Object-Oriented Programming (OOP).
 * Save Transactions to File
 * Load Transactions Automatically on Startup
 * Input Validation and Error Handling
+* View Statistics
 
 ## Technologies Used
 

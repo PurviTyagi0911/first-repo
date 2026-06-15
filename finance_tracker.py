@@ -14,7 +14,7 @@ class FinanceTracker:
            balance+=transaction.amount
           elif transaction.ttype=="expense":
             balance-=transaction.amount 
-       return f'${balance}'  
+       return f'{balance}'  
     def add_income(self,amount,category):
        self.amount=amount
        self.category=category    
@@ -96,9 +96,9 @@ class FinanceTracker:
        else:
         maxamn=max(dictctg.values())
         maxctg = [key for key, value in dictctg.items() if value == maxamn]
-        print(f'Category with highest expense ${maxamn} are')
+        print(f'Category with highest expense ${maxamn} is/are')
         for item in maxctg:
-           print(item)
+           return item
 
     def save_trans(self,transaction):
        with open('transactions.txt','a') as file:

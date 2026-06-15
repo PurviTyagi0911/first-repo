@@ -42,7 +42,6 @@ while True:
      if balance<0:
        print("transaction failed","invalid expense your current balance is",balance+amount)
        Tracker.trans_failed()
-       Tracker.update_file()
       
      else:
        print("Expense of rupees",amount, "added successfully")
@@ -50,7 +49,7 @@ while True:
      
      Tracker.view_transactions()
     elif user_input==4:
-      print(Tracker.view_balance())
+      print(f'${Tracker.view_balance()}')
     elif user_input==5:
       break
     elif user_input==6:
@@ -64,7 +63,7 @@ while True:
       num=int(input("Enter transaction id to delete : "))
       Tracker.delete_trans(num)
     elif user_input==10:
-     Tracker.highest_expense()
+     print(Tracker.highest_expense())
     elif user_input==11:
       Tracker.clear_his()
       Tracker.update_file()
